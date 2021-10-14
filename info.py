@@ -7,7 +7,7 @@ class Info:
         "actions":{
         "P":{"name": "P","reward":2, "next": "TU10p"}, 
         "R":{"name": "R","reward":0, "next": "RU10p"},
-        "S":{"name": "S","reward":-1, "next": "RD10p"}}
+        "S":{"name": "S","reward":-1, "next": "RD10p"}} 
         },
         "TU10p":{
         "name": "TU10P",

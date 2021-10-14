@@ -34,7 +34,35 @@ class State:
   
   def monteCarlo(self, totalEpisodeReward):
     self.value = self.value + self.learningRate * (totalEpisodeReward - self.value)
-  
+
+  def valueIteration(self, prevEpisode):
+        Q = {}
+
+        for action, actionInfo in self.actions.items():
+           reward = int(actionInfo['reward'])
+           probability = 1/ len(self.action)
+           name = str(actionInfo['name'])
+
+           nextStateName = actionInfo['next']
+           nextStateValue = prevEpisode[nextStateName].getValue()
+
+           Q[name] = probability * (reward + (.99 * nextStateValue))
+        
+        actionMax = max(Q.values())
+
+        if(self.value < actionMax): 
+          print("Value Updated!")
+          print("Previous Value: ", self.value)
+          print("Updated Value: ", actionMax)
+
+          print("Action Considerations: ", Q)
+
+          for key in Q:
+            if Q[key] == actionMax:
+              print("Action Selected: ", key)
+
+          self.setValue(actionMax)
+
   def probability(self):
     actions = self.actions
     rng = random.choice(list(actions.values()))

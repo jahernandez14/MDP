@@ -38,6 +38,10 @@ class Episode:
       self.updatedEpisode[state].monteCarlo(total)
 
     return self.updatedEpisode
+ 
+  def valueIterationUpdate(self):
+        
+        print("yes")
 
   def getEpisodeNumber(self):
     return self.episodeNumber
