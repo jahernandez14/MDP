@@ -40,8 +40,11 @@ class Episode:
     return self.updatedEpisode
  
   def valueIterationUpdate(self):
-        
-        print("yes")
+    for state in self.updatedEpisode:
+      self.updatedEpisode[state].valueIteration(self.prevEpisode)
+    
+    return self.updatedEpisode
+
 
   def getEpisodeNumber(self): 
     return self.episodeNumber

@@ -8,10 +8,10 @@ prevEpisode = stateMap
 iterations = 0
 
 print("\n**************************************** Value Iteration MDP ****************************************")
-for iterations in range(1,4): #while prev episode
+for episode in range(1,4): #while prev episode
     print("\n**************************************** New Iteration ****************************************")
 
-    currentEpisode = Episode(prevEpisode, stateMap)
+    currentEpisode = Episode(episode,prevEpisode, stateMap)
     prevEpisode = currentEpisode.valueIterationUpdate()
 
     
