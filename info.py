@@ -2,7 +2,8 @@ from state import State
 
 class Info:
     def __init__(self):
-        self.states = {"RU8p":{
+        self.states = {
+        "RU8p":{
         "name": "RU8p",
         "actions":{
         "P":{"name": "P","reward":2, "next": "TU10p"}, 
@@ -11,16 +12,16 @@ class Info:
         },
         "TU10p":{
         "name": "TU10P",
-        "actions":{
+        "actions":{ 
         "P":{"name": "P","reward":2, "next": "RU10a"}, 
         "R":{"name": "R","reward":0, "next": "RU8a"}}
         },
         "RU10p":{
         "name": "RU10p",
         "actions":{
-        "P":{"name": "P","reward":2, "next": {"P1":"RU8a","P2":"RD8a"}}, 
-        "R":{"name": "R","reward":0, "next": "RU10a"},
-        "S":{"name": "S","reward":-1, "next": "RD10a"}},
+        "R":{"name": "R","reward":0, "next": "RU8a"},
+        "S":{"name": "S","reward":-1, "next": "RD8a"},
+        "P":{"name": "P","reward":2, "next": {"P1":"RU8a","P2":"RU10a"}}},
         },
         "RD10p":{
         "name": "RD10p",

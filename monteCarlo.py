@@ -2,7 +2,7 @@ from episode import Episode
 from info import Info
 
 info = Info()
-stateMap = info.getInfo()
+stateMap = info.getInfo() 
 prevEpisode = stateMap
 
 total = 0

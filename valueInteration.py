@@ -8,15 +8,19 @@ prevEpisode = stateMap
 iterations = 0
 
 print("\n**************************************** Value Iteration MDP ****************************************")
-for episode in range(1,4): #while prev episode
-    currentEpisode = Episode(episode, prevEpisode, stateMap)
+for iterations in range(1,4): #while prev episode
+    print("\n**************************************** New Iteration ****************************************")
+
+    currentEpisode = Episode(prevEpisode, stateMap)
     prevEpisode = currentEpisode.valueIterationUpdate()
+
+    
     # iterations = episode
 
-print("Iterations Required: ", iterations)
-print("\nFinal State Values")
+# print("Iterations Required: ", iterations)
+# print("\nFinal State Values")
 
-for state in prevEpisode:
-    print("State:", prevEpisode[state].getState(), f"\tValue: {prevEpisode[state].getValue():.2f}")
+# for state in prevEpisode:
+#     print("State:", prevEpisode[state].getState(), f"\tValue: {prevEpisode[state].getValue():.2f}")
 
-print("\nFinal Optimal Policy: ")
+# print("\nFinal Optimal Policy: ")

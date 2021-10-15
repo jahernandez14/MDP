@@ -6,6 +6,7 @@ class State:
   next = ""
   action = ""
 
+
   def __init__(self, state, actions, value):
     self.state = state
     self.actions = actions
@@ -35,33 +36,53 @@ class State:
   def monteCarlo(self, totalEpisodeReward):
     self.value = self.value + self.learningRate * (totalEpisodeReward - self.value)
 
-  def valueIteration(self, prevEpisode):
-        Q = {}
+  def valueIteration(self, prevEpisode): 
+    Q = {}
+  
+    for action, actionInfo in self.actions.items():
+      if action == 'any': # Exit
+            return
 
-        for action, actionInfo in self.actions.items():
-           reward = int(actionInfo['reward'])
-           probability = 1/ len(self.action)
-           name = str(actionInfo['name'])
+      reward = int(actionInfo['reward'])  #reward for taking action
+      probability = 1/ len(actionInfo)  #probability of taking action
+      nextStateName = actionInfo['next']  #state transitioned to as result of action
 
-           nextStateName = actionInfo['next']
-           nextStateValue = prevEpisode[nextStateName].getValue()
+      if isinstance(nextStateName, str):
+        nextStateValue = prevEpisode[nextStateName].getValue()
+        name = str(actionInfo['name'])
 
-           Q[name] = probability * (reward + (.99 * nextStateValue))
+        Q[name] = probability * (reward + (.99 * nextStateValue)) # Append to options
+
+      elif isinstance(nextStateName, dict):
+        for nestedAction, nestedActionInfo in nextStateName.items(): #check actions in nested dictionary
+          nextStateName = nestedActionInfo
+          nextStateValue = prevEpisode[nextStateName].getValue() # Get value of state
+          name = nestedAction
+
+          Q[name] = round(probability * (reward + (.99 * nextStateValue)), 4) # Append to options
         
-        actionMax = max(Q.values())
+    actionMax = max(Q.values()) # Take max of options
+    
+    if(self.value < actionMax and (actionMax - self.value) > .001):  #update value
+      print("Value Updated!")
+      print("Previous Value: ", round(self.value, 4))
+      self.setValue(actionMax)
+      print("Updated Value: ", round(self.value,4))
 
-        if(self.value < actionMax): 
-          print("Value Updated!")
-          print("Previous Value: ", self.value)
-          print("Updated Value: ", actionMax)
+      print("Action Considerations: ", Q)
 
-          print("Action Considerations: ", Q)
+      for key in Q:
+        if Q[key] == actionMax:
+          print("Action Selected: ", key)
+          break 
+          
+    elif (actionMax - self.value) < .001 : # not large enough change
+      print("Change less than .001 at state")
+      return
+      
+      
 
-          for key in Q:
-            if Q[key] == actionMax:
-              print("Action Selected: ", key)
-
-          self.setValue(actionMax)
+    print("-------------------------------------")
 
   def probability(self):
     actions = self.actions

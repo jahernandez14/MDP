@@ -43,7 +43,7 @@ class Episode:
         
         print("yes")
 
-  def getEpisodeNumber(self):
+  def getEpisodeNumber(self): 
     return self.episodeNumber
 
   def getRewards(self):
