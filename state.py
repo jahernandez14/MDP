@@ -5,7 +5,7 @@ class State:
   reward = 0
   next = ""
   action = ""
-
+  rep= 0
 
   def __init__(self, state, actions, value):
     self.state = state
@@ -35,54 +35,10 @@ class State:
   
   def monteCarlo(self, totalEpisodeReward):
     self.value = self.value + self.learningRate * (totalEpisodeReward - self.value)
-
-  def valueIteration(self, prevEpisode): 
-    Q = {}
   
-    for action, actionInfo in self.actions.items():
-      if action == 'any': # Exit
-            return
-
-      reward = int(actionInfo['reward'])  #reward for taking action
-      probability = 1/ len(actionInfo)  #probability of taking action
-      nextStateName = actionInfo['next']  #state transitioned to as result of action
-
-      if isinstance(nextStateName, str):
-        nextStateValue = prevEpisode[nextStateName].getValue()
-        name = str(actionInfo['name'])
-
-        Q[name] = probability * (reward + (.99 * nextStateValue)) # Append to options
-
-      elif isinstance(nextStateName, dict):
-        for nestedAction, nestedActionInfo in nextStateName.items(): #check actions in nested dictionary
-          nextStateName = nestedActionInfo
-          nextStateValue = prevEpisode[nextStateName].getValue() # Get value of state
-          name = nestedAction
-
-          Q[name] = round(probability * (reward + (.99 * nextStateValue)), 4) # Append to options
-        
-    actionMax = max(Q.values()) # Take max of options
-    
-    if(self.value < actionMax and (actionMax - self.value) > .001):  #update value
-      print("Value Updated!")
-      print("Previous Value: ", round(self.value, 4))
-      self.setValue(actionMax)
-      print("Updated Value: ", round(self.value,4))
-
-      print("Action Considerations: ", Q)
-
-      for key in Q:
-        if Q[key] == actionMax:
-          print("Action Selected: ", key)
-          break 
-          
-    elif (actionMax - self.value) < .001 : # not large enough change
-      print("Change less than .001 at state")
-      return
-      
-      
-
-    print("-------------------------------------")
+  def qLearnFormula(self, alpha, nextStateVal):
+    q = self.value + alpha * (self.reward + (.99 * nextStateVal) - self.value)
+    return q
 
   def probability(self):
     actions = self.actions
@@ -98,6 +54,12 @@ class State:
 
   def nextState(self):
     self.probability()
+  
+  def getRep(self):
+    return self.rep
+  
+  def setRep(self):
+    return self.rep
 
 
 

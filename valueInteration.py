@@ -5,15 +5,21 @@ info = Info()
 stateMap = info.getInfo()
 prevEpisode = stateMap
 
-iterations = 0
-
+iterations = 1
+status = False
 print("\n**************************************** Value Iteration MDP ****************************************")
-for episode in range(1,4): #while prev episode
-    print("\n**************************************** New Iteration ****************************************")
+while status == False:
+    print("\n**************************************** Iteration", iterations,"****************************************")
 
-    currentEpisode = Episode(episode,prevEpisode, stateMap)
+    currentEpisode = Episode(iterations, prevEpisode, stateMap)
     prevEpisode = currentEpisode.valueIterationUpdate()
+    status = currentEpisode.getStatus()
+    iterations += 1
 
+
+
+    # probability * (reward + .99 * nextState Value)
+    # 1 *(1 + .99 * 0)
     
     # iterations = episode
 

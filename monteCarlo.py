@@ -1,8 +1,11 @@
 from episode import Episode
 from info import Info
-
+'''
+Julio A Hernandez
+Alex Vasquez
+'''
 info = Info()
-stateMap = info.getInfo() 
+stateMap = info.getInfo()
 prevEpisode = stateMap
 
 total = 0

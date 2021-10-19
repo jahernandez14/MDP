@@ -11,7 +11,7 @@ class Info:
         "S":{"name": "S","reward":-1, "next": "RD10p"}} 
         },
         "TU10p":{
-        "name": "TU10P",
+        "name": "TU10p",
         "actions":{ 
         "P":{"name": "P","reward":2, "next": "RU10a"}, 
         "R":{"name": "R","reward":0, "next": "RU8a"}}
@@ -27,7 +27,7 @@ class Info:
         "name": "RD10p",
         "actions":{
         "P":{"name": "P","reward":2, "next": {"P1":"RD8a","P2":"RD10a"}}, 
-        "R":{"name": "R","reward":0, "next": "RU10p"}}
+        "R":{"name": "R","reward":0, "next": "RD8a"}}
         },
         "RU8a":{
         "name": "RU8a",
